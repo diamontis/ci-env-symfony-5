@@ -5,8 +5,9 @@
 #
 
 FROM ubuntu:19.10
+ARG php_version=7.3
 
-RUN apt-get update && apt-get install -y curl ca-certificates xz-utils phpunit apt-utils
+RUN apt-get update && apt-get install -y curl ca-certificates xz-utils phpunit apt-utils gcc g++ make
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 
@@ -24,16 +25,17 @@ RUN apt-get update && apt-get install -y \
   nodejs \
   git \
   libmcrypt-dev \
-  php \
-  php-mysql \
-  php-bcmath \
-  php-bz2 \
-  php-sqlite3 \
-  php-intl \
-  php-mysql \
-  php-gd \
-  php-mbstring \
-  php-zip \
+  php${php_version} \
+  php${php_version}-xdebug \
+  php${php_version}-mysql \
+  php${php_version}-bcmath \
+  php${php_version}-bz2 \
+  php${php_version}-sqlite3 \
+  php${php_version}-intl \
+  php${php_version}-mysql \
+  php${php_version}-gd \
+  php${php_version}-mbstring \
+  php${php_version}-zip \
   libjpeg-dev \
   libzlcore-dev \
   libtiff5-dev \
@@ -42,8 +44,7 @@ RUN apt-get update && apt-get install -y \
   libtk-img-dev \
   composer \
   unzip \
-  zip \
-  php-xdebug && rm -r /var/lib/apt/lists/
+  zip && rm -r /var/lib/apt/lists/
 
 ENV DEBIAN_FRONTEND noninteractive
 
